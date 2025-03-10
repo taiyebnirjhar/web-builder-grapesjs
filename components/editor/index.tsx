@@ -12,14 +12,12 @@ import { useEditor } from "@/hooks/use-editor";
 import type { DeviceConfig } from "@/types/editor";
 import {
   Box,
-  Code,
   Download,
   Eye,
   MousePointer,
   Palette,
   PanelRight,
   Redo,
-  Save,
   Settings,
   Sliders,
   Undo,
@@ -28,7 +26,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AttributesEditor } from "./attributes-editor/attributes-editor";
 import { BlocksManager } from "./blocks-manager/blocks-manager";
-import { CodeEditor } from "./code-editor/code-editor";
 import { DevicePreview } from "./device-preview/device-preview";
 import { InteractivityEditor } from "./interactivity/interactivity-editor";
 import { ResponsivePanel } from "./responsive-panel/responsive-panel";
@@ -342,7 +339,7 @@ export default function GrapesJSEditor() {
             <TooltipContent side="bottom">Templates</TooltipContent>
           </Tooltip>
 
-          <Tooltip>
+          {/* <Tooltip>
             <TooltipTrigger asChild>
               <CodeEditor
                 html={editorHtml}
@@ -354,9 +351,9 @@ export default function GrapesJSEditor() {
               />
             </TooltipTrigger>
             <TooltipContent side="bottom">Edit Code</TooltipContent>
-          </Tooltip>
+          </Tooltip> */}
 
-          <Tooltip>
+          {/* <Tooltip>
             <TooltipTrigger asChild>
               <Button
                 variant="ghost"
@@ -368,7 +365,7 @@ export default function GrapesJSEditor() {
               </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom">Import HTML</TooltipContent>
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -411,14 +408,14 @@ export default function GrapesJSEditor() {
             <TooltipContent side="bottom">Preview</TooltipContent>
           </Tooltip>
 
-          <Tooltip>
+          {/* <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" className="h-8 w-8">
                 <Save className="w-4 h-4" />
               </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom">Save Project</TooltipContent>
-          </Tooltip>
+          </Tooltip> */}
 
           <Tooltip>
             <TooltipTrigger asChild>
