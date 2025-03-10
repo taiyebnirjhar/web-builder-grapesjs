@@ -18,7 +18,6 @@ import {
   Palette,
   PanelRight,
   Redo,
-  Settings,
   Sliders,
   Undo,
 } from "lucide-react";
@@ -512,7 +511,7 @@ export default function GrapesJSEditor() {
     return (
       <div className="w-[40%] border-l border-slate-800 flex flex-col h-full transition-all duration-300 ease-in-out">
         <Tabs defaultValue="style" className="h-full flex flex-col">
-          <TabsList className="grid w-full grid-cols-4 h-10 bg-slate-900 rounded-none border-b border-slate-800">
+          <TabsList className="grid w-full grid-cols-3 h-10 bg-slate-900 rounded-none border-b border-slate-800">
             <Tooltip>
               <TooltipTrigger asChild>
                 <TabsTrigger value="style" className="text-xs font-medium">
@@ -543,7 +542,7 @@ export default function GrapesJSEditor() {
               </TooltipTrigger>
               <TooltipContent side="bottom">Interactivity</TooltipContent>
             </Tooltip>
-            <Tooltip>
+            {/* <Tooltip>
               <TooltipTrigger asChild>
                 <TabsTrigger value="settings" className="text-xs font-medium">
                   <Settings className="w-4 h-4" />
@@ -551,7 +550,7 @@ export default function GrapesJSEditor() {
                 </TabsTrigger>
               </TooltipTrigger>
               <TooltipContent side="bottom">Settings</TooltipContent>
-            </Tooltip>
+            </Tooltip> */}
           </TabsList>
 
           <TabsContent value="style" className="p-3 flex-1 overflow-y-auto">
@@ -572,9 +571,9 @@ export default function GrapesJSEditor() {
             {renderInteractivityTab()}
           </TabsContent>
 
-          <TabsContent value="settings" className="p-3 flex-1 overflow-y-auto">
+          {/* <TabsContent value="settings" className="p-3 flex-1 overflow-y-auto">
             {renderSettingsTab()}
-          </TabsContent>
+          </TabsContent> */}
         </Tabs>
       </div>
     );
