@@ -1,0 +1,303 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 262 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 221.2 83.2% 53.3%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262 83.3% 57.8%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 262 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 262 83.3% 57.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground dark;
+  }
+}
+
+/* Hide GrapesJS default UI */
+.gjs-pn-panel {
+  display: none !important;
+}
+
+.gjs-cv-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.gjs-frame-wrapper {
+  padding: 0 !important;
+}
+
+/* Style the editor */
+.gjs-one-bg {
+  background-color: #0f172a !important;
+}
+
+.gjs-two-color {
+  color: #6366f1 !important;
+}
+
+.gjs-three-bg {
+  background-color: #6366f1 !important;
+}
+
+.gjs-four-color,
+.gjs-four-color-h:hover {
+  color: #4f46e5 !important;
+}
+
+/* Style the canvas */
+.gjs-frame {
+  background-color: white !important;
+}
+
+/* Style the modal */
+.gjs-mdl-container {
+  background-color: rgba(15, 23, 42, 0.7) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+.gjs-mdl-dialog {
+  background-color: #1e293b !important;
+  color: white !important;
+  border-radius: 0.5rem !important;
+  border: 1px solid #334155 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3) !important;
+}
+
+.gjs-mdl-header {
+  border-bottom: 1px solid #334155 !important;
+  padding: 0.75rem 1rem !important;
+}
+
+.gjs-mdl-title {
+  font-weight: 600 !important;
+}
+
+.gjs-mdl-btn-close {
+  color: white !important;
+}
+
+/* Style the component highlight */
+.gjs-selected {
+  outline: 2px solid #6366f1 !important;
+}
+
+.gjs-hovered {
+  outline: 1px solid rgba(99, 102, 241, 0.5) !important;
+}
+
+/* Style the resizer */
+.gjs-resizer-h {
+  background-color: #6366f1 !important;
+  border-color: #6366f1 !important;
+}
+
+.gjs-resizer-v {
+  background-color: #6366f1 !important;
+  border-color: #6366f1 !important;
+}
+
+/* Custom styles for tooltips */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #1e293b;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 12px;
+  border: 1px solid #334155;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Custom scrollbar for panels */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Responsive panel styles */
+.responsive-panel {
+  background-color: #1e293b;
+  border-top: 1px solid #334155;
+}
+
+/* Compact UI elements */
+.compact-button {
+  @apply h-8 text-xs px-2.5;
+}
+
+.compact-icon-button {
+  @apply h-7 w-7;
+}
+
+.compact-input {
+  @apply h-8 text-xs px-2.5 py-1.5;
+}
+
+/* Premium UI enhancements */
+.premium-card {
+  @apply bg-slate-800 border border-slate-700 rounded-md shadow-sm hover:shadow-md transition-shadow;
+}
+
+.premium-gradient {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+}
+
+.premium-text-gradient {
+  background: linear-gradient(135deg, #6366f1 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Ensure resize handles are always visible when needed */
+.invisible {
+  visibility: hidden !important;
+}
+
+/* Add these styles to your globals.css */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-thumb-slate-700::-webkit-scrollbar-thumb {
+    background-color: #334155;
+    border-radius: 3px;
+  }
+
+  .scrollbar-track-slate-800::-webkit-scrollbar-track {
+    background-color: #1e293b;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+/* Add these styles for interactivity animations */
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.fade-in.active {
+  opacity: 1;
+}
+
+.slide-in {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.slide-in.active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.scale-in {
+  transform: scale(0.8);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.scale-in.active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Add these utility classes for interactivity */
+.hidden-element {
+  display: none;
+}
+
+.visible-element {
+  display: block;
+}
+
+.interactive-hover:hover {
+  transition: all 0.3s ease;
+}
+
+.interactive-active {
+  transition: all 0.3s ease;
+}
+
