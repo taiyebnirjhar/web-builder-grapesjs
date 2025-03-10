@@ -1,39 +1,53 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Code, Play } from "lucide-react"
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
+import { Code, Play } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface CodeEditorProps {
-  html: string
-  css: string
-  js: string
-  onUpdateHtml: (html: string) => void
-  onUpdateCss: (css: string) => void
-  onUpdateJs: (js: string) => void
+  html: string;
+  css: string;
+  js: string;
+  onUpdateHtml: (html: string) => void;
+  onUpdateCss: (css: string) => void;
+  onUpdateJs: (js: string) => void;
 }
 
-export function CodeEditor({ html, css, js, onUpdateHtml, onUpdateCss, onUpdateJs }: CodeEditorProps) {
-  const [localHtml, setLocalHtml] = useState(html)
-  const [localCss, setLocalCss] = useState(css)
-  const [localJs, setLocalJs] = useState(js)
-  const [preview, setPreview] = useState("")
-  const [activeTab, setActiveTab] = useState("html")
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
+export function CodeEditor({
+  html,
+  css,
+  js,
+  onUpdateHtml,
+  onUpdateCss,
+  onUpdateJs,
+}: CodeEditorProps) {
+  const [localHtml, setLocalHtml] = useState(html);
+  const [localCss, setLocalCss] = useState(css);
+  const [localJs, setLocalJs] = useState(js);
+  const [preview, setPreview] = useState("");
+  const [activeTab, setActiveTab] = useState("html");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
-    setLocalHtml(html)
-    setLocalCss(css)
-    setLocalJs(js)
-  }, [html, css, js])
+    setLocalHtml(html);
+    setLocalCss(css);
+    setLocalJs(js);
+  }, [html, css, js]);
 
   useEffect(() => {
     if (isDialogOpen) {
-      generatePreview()
+      generatePreview();
     }
-  }, [isDialogOpen])
+  }, [isDialogOpen]);
 
   const generatePreview = () => {
     const previewHtml = `
@@ -42,6 +56,8 @@ export function CodeEditor({ html, css, js, onUpdateHtml, onUpdateCss, onUpdateJ
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Add Tailwind CSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
         <style>${localCss}</style>
       </head>
       <body>
@@ -49,22 +65,22 @@ export function CodeEditor({ html, css, js, onUpdateHtml, onUpdateCss, onUpdateJ
         <script>${localJs}</script>
       </body>
       </html>
-    `
-    setPreview(previewHtml)
-  }
+    `;
+    setPreview(previewHtml);
+  };
 
   const handleApplyChanges = () => {
-    onUpdateHtml(localHtml)
-    onUpdateCss(localCss)
-    onUpdateJs(localJs)
-    setIsDialogOpen(false)
-  }
+    onUpdateHtml(localHtml);
+    onUpdateCss(localCss);
+    onUpdateJs(localJs);
+    setIsDialogOpen(false);
+  };
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          <Code className="w-4 h-4 mr-2" />
+        <Button variant="outline" size="sm" className="h-8 text-xs">
+          <Code className="w-3.5 h-3.5 mr-1.5" />
           Code Editor
         </Button>
       </DialogTrigger>
@@ -75,15 +91,25 @@ export function CodeEditor({ html, css, js, onUpdateHtml, onUpdateCss, onUpdateJ
 
         <div className="flex-1 flex flex-col md:flex-row gap-4 overflow-hidden">
           <div className="md:w-1/2 flex flex-col">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col">
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab}
+              className="flex-1 flex flex-col"
+            >
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="html">HTML</TabsTrigger>
                 <TabsTrigger value="css">CSS</TabsTrigger>
                 <TabsTrigger value="js">JavaScript</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="html" className="flex-1 flex flex-col">
-                <div className="flex-1 border rounded-md overflow-hidden">
+              <TabsContent
+                value="html"
+                className={cn(
+                  "flex-1 flex flex-col",
+                  activeTab !== "html" && "hidden"
+                )}
+              >
+                <div className="flex-1 border rounded-md  h-full">
                   <textarea
                     className="w-full h-full p-4 font-mono text-sm bg-gray-900 text-gray-100 resize-none focus:outline-none"
                     value={localHtml}
@@ -93,7 +119,13 @@ export function CodeEditor({ html, css, js, onUpdateHtml, onUpdateCss, onUpdateJ
                 </div>
               </TabsContent>
 
-              <TabsContent value="css" className="flex-1 flex flex-col">
+              <TabsContent
+                value="css"
+                className={cn(
+                  "flex-1 flex flex-col",
+                  activeTab !== "css" && "hidden"
+                )}
+              >
                 <div className="flex-1 border rounded-md overflow-hidden">
                   <textarea
                     className="w-full h-full p-4 font-mono text-sm bg-gray-900 text-gray-100 resize-none focus:outline-none"
@@ -104,7 +136,13 @@ export function CodeEditor({ html, css, js, onUpdateHtml, onUpdateCss, onUpdateJ
                 </div>
               </TabsContent>
 
-              <TabsContent value="js" className="flex-1 flex flex-col">
+              <TabsContent
+                value="js"
+                className={cn(
+                  "flex-1 flex flex-col",
+                  activeTab !== "js" && "hidden"
+                )}
+              >
                 <div className="flex-1 border rounded-md overflow-hidden">
                   <textarea
                     className="w-full h-full p-4 font-mono text-sm bg-gray-900 text-gray-100 resize-none focus:outline-none"
@@ -126,7 +164,12 @@ export function CodeEditor({ html, css, js, onUpdateHtml, onUpdateCss, onUpdateJ
               </Button>
             </div>
             <div className="flex-1 border rounded-md overflow-hidden bg-white">
-              <iframe srcDoc={preview} title="Preview" className="w-full h-full" sandbox="allow-scripts" />
+              <iframe
+                srcDoc={preview}
+                title="Preview"
+                className="w-full h-full"
+                sandbox="allow-scripts"
+              />
             </div>
           </div>
         </div>
@@ -139,6 +182,5 @@ export function CodeEditor({ html, css, js, onUpdateHtml, onUpdateCss, onUpdateJ
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
-

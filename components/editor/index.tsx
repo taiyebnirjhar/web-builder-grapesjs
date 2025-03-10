@@ -12,6 +12,7 @@ import { useEditor } from "@/hooks/use-editor";
 import type { DeviceConfig } from "@/types/editor";
 import {
   Box,
+  Code,
   Download,
   Eye,
   MousePointer,
@@ -19,12 +20,14 @@ import {
   PanelRight,
   Redo,
   Sliders,
+  Trash2,
   Undo,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AttributesEditor } from "./attributes-editor/attributes-editor";
 import { BlocksManager } from "./blocks-manager/blocks-manager";
+import { CodeEditor } from "./code-editor/code-editor";
 import { DevicePreview } from "./device-preview/device-preview";
 import { InteractivityEditor } from "./interactivity/interactivity-editor";
 import { ResponsivePanel } from "./responsive-panel/responsive-panel";
@@ -51,7 +54,8 @@ export default function GrapesJSEditor() {
         title: "Import Code",
         content: `
         <div style="padding: 20px;">
-          <textarea id="import-code" style="width: 100%; height: 250px; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;" placeholder="Paste your HTML code here"></textarea>
+          <textarea id="import-code" style="width: 100%; height: 250px; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; color:black
+          ;" placeholder="Paste your HTML code here"></textarea>
           <button id="import-button" style="padding: 8px 16px; background-color: #7C3AED; color: white; border: none; border-radius: 4px; cursor: pointer;">Import</button>
         </div>
       `,
@@ -136,6 +140,41 @@ export default function GrapesJSEditor() {
       } else {
         state.editor.setComponents(content);
       }
+    }
+  };
+  const handleClearCanvas = () => {
+    if (state.editor) {
+      try {
+        // Clear all components from the canvas
+        state.editor.setComponents("");
+
+        // Also clear any custom styles
+        state.editor.setStyle("");
+
+        // Clear any JavaScript if the editor supports it
+        if (typeof state.editor.setJs === "function") {
+          state.editor.setJs("");
+        } else if (state.editor.StorageManager) {
+          // Fallback for editors without setJs
+          state.editor.StorageManager.store({
+            jsCode: "",
+          });
+        }
+
+        // Update the editor state
+        setEditorHtml("");
+        setEditorCss("");
+        setEditorJs("");
+
+        // Refresh the editor to ensure changes take effect
+        state.editor.refresh();
+
+        console.log("Canvas cleared successfully");
+      } catch (error) {
+        console.error("Error clearing canvas:", error);
+      }
+    } else {
+      console.warn("Editor not initialized");
     }
   };
 
@@ -338,7 +377,7 @@ export default function GrapesJSEditor() {
             <TooltipContent side="bottom">Templates</TooltipContent>
           </Tooltip>
 
-          {/* <Tooltip>
+          <Tooltip>
             <TooltipTrigger asChild>
               <CodeEditor
                 html={editorHtml}
@@ -350,21 +389,22 @@ export default function GrapesJSEditor() {
               />
             </TooltipTrigger>
             <TooltipContent side="bottom">Edit Code</TooltipContent>
-          </Tooltip> */}
+          </Tooltip>
 
-          {/* <Tooltip>
+          <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8"
+                variant="outline"
+                size="sm"
+                className="h-8 text-xs"
                 onClick={handleImportCode}
               >
-                <Code className="h-4 w-4" />
+                <Code className="w-3.5 h-3.5 mr-1.5" />
+                Import HTML
               </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom">Import HTML</TooltipContent>
-          </Tooltip> */}
+          </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -391,6 +431,20 @@ export default function GrapesJSEditor() {
               </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom">Redo</TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8"
+                onClick={handleClearCanvas}
+              >
+                <Trash2 className="w-4 h-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">Reset Canvas</TooltipContent>
           </Tooltip>
 
           <Tooltip>
