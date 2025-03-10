@@ -1,9 +1,8 @@
 "use client";
 
 import type React from "react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
-import { blockLibrary } from "@/components/block-library";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -141,12 +140,6 @@ export function BlocksManager({
     favoritesList,
     recentBlocksList
   );
-
-  // Load premium blocks
-  useEffect(() => {
-    // This would typically connect to your backend or load blocks from an API
-    console.log("Premium blocks library loaded", blockLibrary);
-  }, []);
 
   // Handle adding a block
   const handleAddBlock = useCallback(

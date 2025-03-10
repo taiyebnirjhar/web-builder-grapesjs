@@ -1,4 +1,5 @@
-import type { EditorConfig, DeviceConfig, BlockConfig } from "../types/editor"
+import type { DeviceConfig, EditorConfig } from "../types/editor";
+import { defaultBlocks } from "./block-library";
 
 // Default devices for responsive design
 export const defaultDevices: DeviceConfig[] = [
@@ -19,60 +20,13 @@ export const defaultDevices: DeviceConfig[] = [
     width: "320px",
     widthMedia: "480px",
   },
-]
-
-// Default blocks for the editor
-export const defaultBlocks: BlockConfig[] = [
-  {
-    id: "section",
-    label: "Section",
-    category: "Basic",
-    content: '<section class="section"><div class="container"></div></section>',
-    attributes: { class: "gjs-block-section" },
-  },
-  {
-    id: "text",
-    label: "Text",
-    category: "Basic",
-    content: '<div data-gjs-type="text">Insert your text here</div>',
-    attributes: { class: "gjs-block-text" },
-  },
-  {
-    id: "image",
-    label: "Image",
-    category: "Media",
-    content: { type: "image" },
-    attributes: { class: "gjs-block-image" },
-  },
-  {
-    id: "video",
-    label: "Video",
-    category: "Media",
-    content: {
-      type: "video",
-      src: "https://www.youtube.com/embed/jNQXAC9IVRw",
-      style: {
-        height: "350px",
-        width: "100%",
-      },
-    },
-    attributes: { class: "gjs-block-video" },
-  },
-  {
-    id: "link",
-    label: "Link",
-    category: "Basic",
-    content: {
-      type: "link",
-      content: "Link",
-      attributes: { href: "#" },
-    },
-    attributes: { class: "gjs-block-link" },
-  },
-]
+];
 
 // Create editor configuration
-export function createEditorConfig(container: HTMLElement | string, options: Partial<EditorConfig> = {}): EditorConfig {
+export function createEditorConfig(
+  container: HTMLElement | string,
+  options: Partial<EditorConfig> = {}
+): EditorConfig {
   return {
     container,
     height: "100%",
@@ -113,14 +67,22 @@ export function createEditorConfig(container: HTMLElement | string, options: Par
           properties: [
             { name: "Padding", property: "padding", type: "composite" },
             { name: "Margin", property: "margin", type: "composite" },
-            { name: "Border Radius", property: "border-radius", type: "slider" },
+            {
+              name: "Border Radius",
+              property: "border-radius",
+              type: "slider",
+            },
           ],
         },
         {
           name: "Colors",
           open: false,
           properties: [
-            { name: "Background Color", property: "background-color", type: "color" },
+            {
+              name: "Background Color",
+              property: "background-color",
+              type: "color",
+            },
             { name: "Border Color", property: "border-color", type: "color" },
             { name: "Border Width", property: "border-width", type: "slider" },
             { name: "Border Style", property: "border-style", type: "select" },
@@ -131,9 +93,10 @@ export function createEditorConfig(container: HTMLElement | string, options: Par
     },
     panels: { defaults: [] },
     canvas: {
-      styles: ["https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"],
+      styles: [
+        "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css",
+      ],
     },
     ...options,
-  }
+  };
 }
-
