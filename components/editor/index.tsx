@@ -729,13 +729,6 @@ export default function GrapesJSEditor() {
   };
 
   useEffect(() => {
-    // When state.styles changes, make sure the sidebar stays open
-    if (state.selectedElement && !showSidebar) {
-      // setShowSidebar(true);
-    }
-  }, [state.styles, state.selectedElement, showSidebar]);
-
-  useEffect(() => {
     if (state.editor) {
       initializeEditor();
       return setupResizeListener();
