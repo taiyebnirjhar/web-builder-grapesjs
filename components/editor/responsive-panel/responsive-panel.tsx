@@ -1,22 +1,28 @@
-"use client"
-
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Slider } from "@/components/ui/slider"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import type { DeviceConfig } from "@/types/editor"
-import { Monitor, Tablet, Smartphone, Plus, Trash2, Save } from "lucide-react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+"use client";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import type { DeviceConfig } from "@/types/editor";
+import { Monitor, Plus, Save, Smartphone, Tablet, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 interface ResponsivePanelProps {
-  devices: DeviceConfig[]
-  currentDevice: string
-  onDeviceChange: (deviceId: string) => void
-  onAddDevice: (device: DeviceConfig) => void
-  onRemoveDevice: (deviceId: string) => void
-  onUpdateDevice: (deviceId: string, updates: Partial<DeviceConfig>) => void
+  devices: DeviceConfig[];
+  currentDevice: string;
+  onDeviceChange: (deviceId: string) => void;
+  onAddDevice: (device: DeviceConfig) => void;
+  onRemoveDevice: (deviceId: string) => void;
+  onUpdateDevice: (deviceId: string, updates: Partial<DeviceConfig>) => void;
 }
 
 export function ResponsivePanel({
@@ -27,42 +33,44 @@ export function ResponsivePanel({
   onRemoveDevice,
   onUpdateDevice,
 }: ResponsivePanelProps) {
-  const [customWidth, setCustomWidth] = useState<number>(375)
+  const [customWidth, setCustomWidth] = useState<number>(375);
   const [newDevice, setNewDevice] = useState<DeviceConfig>({
     id: "",
     name: "",
     width: "",
-  })
-  const [isAddDeviceOpen, setIsAddDeviceOpen] = useState(false)
+  });
+  const [isAddDeviceOpen, setIsAddDeviceOpen] = useState(false);
 
   const handleCustomWidthChange = (values: number[]) => {
-    const width = values[0]
-    setCustomWidth(width)
-    onUpdateDevice("custom", { width: `${width}px` })
-  }
+    const width = values[0];
+    setCustomWidth(width);
+    onUpdateDevice("custom", { width: `${width}px` });
+  };
 
   const handleAddDevice = () => {
     if (newDevice.id && newDevice.name && newDevice.width) {
-      onAddDevice(newDevice)
-      setNewDevice({ id: "", name: "", width: "" })
-      setIsAddDeviceOpen(false)
+      onAddDevice(newDevice);
+      setNewDevice({ id: "", name: "", width: "" });
+      setIsAddDeviceOpen(false);
     }
-  }
+  };
 
   const getDeviceIcon = (deviceId: string) => {
     switch (deviceId) {
       case "desktop":
-        return <Monitor className="w-3.5 h-3.5" />
+        return <Monitor className="w-3.5 h-3.5" />;
       case "tablet":
-        return <Tablet className="w-3.5 h-3.5" />
+        return <Tablet className="w-3.5 h-3.5" />;
       case "mobile":
-        return <Smartphone className="w-3.5 h-3.5" />
+        return <Smartphone className="w-3.5 h-3.5" />;
       default:
-        if (deviceId.includes("tablet")) return <Tablet className="w-3.5 h-3.5" />
-        if (deviceId.includes("mobile")) return <Smartphone className="w-3.5 h-3.5" />
-        return <Monitor className="w-3.5 h-3.5" />
+        if (deviceId.includes("tablet"))
+          return <Tablet className="w-3.5 h-3.5" />;
+        if (deviceId.includes("mobile"))
+          return <Smartphone className="w-3.5 h-3.5" />;
+        return <Monitor className="w-3.5 h-3.5" />;
     }
-  }
+  };
 
   return (
     <div className="p-3 border-t border-slate-800">
@@ -80,7 +88,7 @@ export function ResponsivePanel({
           <div className="flex flex-wrap gap-1.5">
             {devices.map((device) => (
               <Button
-                key={device.id}
+                key={uuid()}
                 variant={currentDevice === device.id ? "default" : "outline"}
                 size="sm"
                 className="h-7 text-xs flex items-center"
@@ -88,32 +96,38 @@ export function ResponsivePanel({
               >
                 {getDeviceIcon(device.id || "")}
                 <span className="ml-1.5">{device.name}</span>
-                {device.id !== "desktop" && device.id !== "tablet" && device.id !== "mobile" && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-4 w-4 ml-1.5 text-slate-400 hover:text-red-500"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      onRemoveDevice(device.id || "")
-                    }}
-                  >
-                    <Trash2 className="h-3 w-3" />
-                  </Button>
-                )}
+                {device.id !== "desktop" &&
+                  device.id !== "tablet" &&
+                  device.id !== "mobile" && (
+                    <div
+                      className="h-4 w-4 ml-1.5 text-slate-400 hover:text-red-500"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onRemoveDevice(device.id || "");
+                      }}
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </div>
+                  )}
               </Button>
             ))}
 
             <Dialog open={isAddDeviceOpen} onOpenChange={setIsAddDeviceOpen}>
               <DialogTrigger asChild>
-                <Button variant="outline" size="sm" className="h-7 text-xs flex items-center">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-7 text-xs flex items-center"
+                >
                   <Plus className="w-3.5 h-3.5 mr-1.5" />
                   Add Device
                 </Button>
               </DialogTrigger>
               <DialogContent className="bg-slate-900 border-slate-700">
                 <DialogHeader>
-                  <DialogTitle className="text-slate-100">Add New Device</DialogTitle>
+                  <DialogTitle className="text-slate-100">
+                    Add New Device
+                  </DialogTitle>
                 </DialogHeader>
                 <div className="space-y-3 py-3">
                   <div className="space-y-1.5">
@@ -123,7 +137,9 @@ export function ResponsivePanel({
                     <Input
                       id="device-id"
                       value={newDevice.id}
-                      onChange={(e) => setNewDevice({ ...newDevice, id: e.target.value })}
+                      onChange={(e) =>
+                        setNewDevice({ ...newDevice, id: e.target.value })
+                      }
                       placeholder="e.g., iphone-13"
                       className="h-7 text-xs bg-slate-800 border-slate-700"
                     />
@@ -135,7 +151,9 @@ export function ResponsivePanel({
                     <Input
                       id="device-name"
                       value={newDevice.name}
-                      onChange={(e) => setNewDevice({ ...newDevice, name: e.target.value })}
+                      onChange={(e) =>
+                        setNewDevice({ ...newDevice, name: e.target.value })
+                      }
                       placeholder="e.g., iPhone 13"
                       className="h-7 text-xs bg-slate-800 border-slate-700"
                     />
@@ -147,7 +165,12 @@ export function ResponsivePanel({
                     <Input
                       id="device-width"
                       value={newDevice.width?.replace("px", "")}
-                      onChange={(e) => setNewDevice({ ...newDevice, width: `${e.target.value}px` })}
+                      onChange={(e) =>
+                        setNewDevice({
+                          ...newDevice,
+                          width: `${e.target.value}px`,
+                        })
+                      }
                       placeholder="e.g., 390"
                       type="number"
                       className="h-7 text-xs bg-slate-800 border-slate-700"
@@ -162,7 +185,11 @@ export function ResponsivePanel({
                     >
                       Cancel
                     </Button>
-                    <Button size="sm" className="h-7 text-xs" onClick={handleAddDevice}>
+                    <Button
+                      size="sm"
+                      className="h-7 text-xs"
+                      onClick={handleAddDevice}
+                    >
                       Add Device
                     </Button>
                   </div>
@@ -186,14 +213,20 @@ export function ResponsivePanel({
                       id: `custom-${Date.now()}`,
                       name: `Custom (${customWidth}px)`,
                       width: `${customWidth}px`,
-                    })
+                    });
                   }}
                 >
                   <Save className="w-3.5 h-3.5 mr-1.5" />
                   Save Size
                 </Button>
               </div>
-              <Slider value={[customWidth]} min={320} max={1920} step={1} onValueChange={handleCustomWidthChange} />
+              <Slider
+                value={[customWidth]}
+                min={320}
+                max={1920}
+                step={1}
+                onValueChange={handleCustomWidthChange}
+              />
             </div>
 
             <div className="grid grid-cols-3 gap-1.5">
@@ -202,8 +235,8 @@ export function ResponsivePanel({
                 size="sm"
                 className="h-7 text-xs"
                 onClick={() => {
-                  setCustomWidth(375)
-                  handleCustomWidthChange([375])
+                  setCustomWidth(375);
+                  handleCustomWidthChange([375]);
                 }}
               >
                 Small Mobile
@@ -213,8 +246,8 @@ export function ResponsivePanel({
                 size="sm"
                 className="h-7 text-xs"
                 onClick={() => {
-                  setCustomWidth(428)
-                  handleCustomWidthChange([428])
+                  setCustomWidth(428);
+                  handleCustomWidthChange([428]);
                 }}
               >
                 Large Mobile
@@ -224,8 +257,8 @@ export function ResponsivePanel({
                 size="sm"
                 className="h-7 text-xs"
                 onClick={() => {
-                  setCustomWidth(768)
-                  handleCustomWidthChange([768])
+                  setCustomWidth(768);
+                  handleCustomWidthChange([768]);
                 }}
               >
                 Tablet
@@ -235,8 +268,8 @@ export function ResponsivePanel({
                 size="sm"
                 className="h-7 text-xs"
                 onClick={() => {
-                  setCustomWidth(1024)
-                  handleCustomWidthChange([1024])
+                  setCustomWidth(1024);
+                  handleCustomWidthChange([1024]);
                 }}
               >
                 Small Desktop
@@ -246,8 +279,8 @@ export function ResponsivePanel({
                 size="sm"
                 className="h-7 text-xs"
                 onClick={() => {
-                  setCustomWidth(1280)
-                  handleCustomWidthChange([1280])
+                  setCustomWidth(1280);
+                  handleCustomWidthChange([1280]);
                 }}
               >
                 Medium Desktop
@@ -257,8 +290,8 @@ export function ResponsivePanel({
                 size="sm"
                 className="h-7 text-xs"
                 onClick={() => {
-                  setCustomWidth(1536)
-                  handleCustomWidthChange([1536])
+                  setCustomWidth(1536);
+                  handleCustomWidthChange([1536]);
                 }}
               >
                 Large Desktop
@@ -268,6 +301,5 @@ export function ResponsivePanel({
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
-

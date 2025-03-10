@@ -19,6 +19,7 @@ import {
 } from "@/utils/component-library";
 import { Download, FileText, Save, Search, Upload } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 // Update the TemplateManagerProps interface to support multiple selections
 interface TemplateManagerProps {
@@ -139,16 +140,6 @@ export function TemplateManager({
             />
           </div>
           <Dialog open={saveDialogOpen} onOpenChange={setSaveDialogOpen}>
-            <DialogTrigger asChild>
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-8 text-xs whitespace-nowrap"
-              >
-                <Save className="w-3.5 h-3.5 mr-1.5" />
-                Save Current
-              </Button>
-            </DialogTrigger>
             <DialogContent className="bg-slate-900 border-slate-700">
               <DialogHeader>
                 <DialogTitle className="text-slate-100">
@@ -320,11 +311,25 @@ export function TemplateManager({
                 My Saved Templates
               </h3>
               <div className="flex space-x-1.5">
-                <Button variant="outline" size="sm" className="h-7 text-xs">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-7 text-xs"
+                  onClick={() => {
+                    toast("Feature Under Development!");
+                  }}
+                >
                   <Upload className="w-3.5 h-3.5 mr-1.5" />
                   Import
                 </Button>
-                <Button variant="outline" size="sm" className="h-7 text-xs">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-7 text-xs"
+                  onClick={() => {
+                    toast("Feature Under Development!");
+                  }}
+                >
                   <Download className="w-3.5 h-3.5 mr-1.5" />
                   Export All
                 </Button>
@@ -343,7 +348,10 @@ export function TemplateManager({
                 <Button
                   size="sm"
                   className="h-8 text-xs"
-                  onClick={() => setSaveDialogOpen(true)}
+                  onClick={() => {
+                    toast("Feature Under Development!");
+                  }}
+                  // onClick={() => setSaveDialogOpen(true)}
                 >
                   <Save className="w-3.5 h-3.5 mr-1.5" />
                   Save Current Design
