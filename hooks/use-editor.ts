@@ -156,21 +156,15 @@ export function useEditor(containerId: string) {
           pluginsOpts: {
             [String(gjsPresetWebpage.default)]: {
               blocksBasicOpts: {
-                blocks: [
-                  "column1",
-                  "column2",
-                  "column3",
-                  "column3-7",
-                  "text",
-                  "link",
-                  "image",
-                  "video",
-                ],
+                blocks: [],
                 flexGrid: true,
               },
               exportOpts: {},
               aviaryOpts: false,
               filestackOpts: false,
+            },
+            [String(gjsBlocksBasic.default)]: {
+              blocks: [], // Empty array to not include any blocks from the plugin
             },
             [String(gjsScriptEditor.default)]: {
               // Script editor options if needed
