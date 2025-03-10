@@ -1,50 +1,67 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Layers, Smartphone, Zap, Code, PaintBucket, MousePointer, Layout, FileCode } from "lucide-react"
+import { motion } from "framer-motion";
+import {
+  Blocks,
+  Code,
+  Import,
+  MousePointer,
+  PaintBucket,
+  Palette,
+  Settings,
+  LayoutTemplateIcon as Templates,
+} from "lucide-react";
 
 const features = [
   {
-    icon: <Layers className="h-6 w-6" />,
-    title: "Premium Components",
-    description: "Access hundreds of pre-built, responsive components to jumpstart your website.",
+    icon: <Blocks className="h-6 w-6" />,
+    title: "Premade Blocks",
+    description:
+      "Drag and drop ready-made blocks to quickly build sections of your website.",
   },
   {
-    icon: <Smartphone className="h-6 w-6" />,
-    title: "Fully Responsive",
-    description: "Every website you build looks perfect on any device, from desktop to mobile.",
-  },
-  {
-    icon: <Zap className="h-6 w-6" />,
-    title: "Lightning Fast",
-    description: "Optimized for speed and performance, delivering a smooth experience for your visitors.",
+    icon: <Templates className="h-6 w-6" />,
+    title: "Premade Templates",
+    description:
+      "Start with professionally designed templates to jumpstart your website creation.",
   },
   {
     icon: <Code className="h-6 w-6" />,
-    title: "Clean Code Export",
-    description: "Export clean, optimized HTML, CSS, and JavaScript code for your website.",
+    title: "Code Editor",
+    description:
+      "Add, remove, or update HTML, CSS, and JavaScript with our integrated code editor.",
+  },
+  {
+    icon: <Import className="h-6 w-6" />,
+    title: "Import HTML",
+    description:
+      "Import your existing HTML code and components to use in your new projects.",
+  },
+  {
+    icon: <Palette className="h-6 w-6" />,
+    title: "Tailwind Support",
+    description:
+      "Build with Tailwind CSS classes for rapid styling and consistent design.",
   },
   {
     icon: <PaintBucket className="h-6 w-6" />,
     title: "Custom Styling",
-    description: "Customize every aspect of your website with our intuitive style editor.",
+    description:
+      "Apply custom CSS styles to any element with our intuitive style editor.",
+  },
+  {
+    icon: <Settings className="h-6 w-6" />,
+    title: "Attribute Options",
+    description:
+      "Easily modify HTML attributes without diving into code for precise control.",
   },
   {
     icon: <MousePointer className="h-6 w-6" />,
-    title: "Interactive Elements",
-    description: "Add animations and interactions without writing a single line of code.",
+    title: "Interactivity Options",
+    description:
+      "Add animations and interactive behaviors without writing complex JavaScript.",
   },
-  {
-    icon: <Layout className="h-6 w-6" />,
-    title: "Flexible Layouts",
-    description: "Create complex layouts with our intuitive grid system and flexible containers.",
-  },
-  {
-    icon: <FileCode className="h-6 w-6" />,
-    title: "SEO Optimized",
-    description: "Built-in SEO tools to help your website rank higher in search engine results.",
-  },
-]
+];
 
 export function FeaturesSection() {
   return (
@@ -58,10 +75,11 @@ export function FeaturesSection() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">
-              Everything you need to build amazing websites
+              Powerful features for code-savvy creators
             </h2>
             <p className="mt-4 text-xl text-slate-600">
-              Our powerful features make it easy to create professional websites without any coding knowledge.
+              Our builder combines the flexibility of code with the ease of
+              drag-and-drop to give you complete control.
             </p>
           </motion.div>
         </div>
@@ -79,13 +97,14 @@ export function FeaturesSection() {
               <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 mb-4">
                 {feature.icon}
               </div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">{feature.title}</h3>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                {feature.title}
+              </h3>
               <p className="text-slate-600">{feature.description}</p>
             </motion.div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
-
