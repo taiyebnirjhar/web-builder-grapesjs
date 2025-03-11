@@ -393,7 +393,7 @@ export default function GrapesJSEditor() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant="outline"
+                variant="ghost"
                 size="sm"
                 className="h-8 text-xs"
                 onClick={handleImportCode}

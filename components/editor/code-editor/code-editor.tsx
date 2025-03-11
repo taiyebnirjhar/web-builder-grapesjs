@@ -79,7 +79,7 @@ export function CodeEditor({
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 text-xs">
+        <Button variant="ghost" size="sm" className="h-8 text-xs">
           <Code className="w-3.5 h-3.5 mr-1.5" />
           Code Editor
         </Button>
