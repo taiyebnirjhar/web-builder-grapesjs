@@ -333,7 +333,7 @@ export function BlocksManager({
           setActiveCategory={setActiveCategory}
         />
 
-        <ScrollArea className="flex-1 pr-4 h-[400px]">
+        <ScrollArea className="flex-1 pr-4 h-[400px] overflow-y-auto">
           {blockView === "grid" ? renderGridView() : renderListView()}
         </ScrollArea>
 
